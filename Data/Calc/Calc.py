@@ -45,6 +45,8 @@ df.groupby(['District', 'County_Name']).agg({'E_24_PRES_Dem':sum, 'E_24_PRES_Rep
 df_B = pd.read_csv('Export.csv')
 split = splits(df_B)
 update(df_B, split)
+total = pd.Series([0, 'Grand Total', df['E_24_PRES_Dem'].sum(), df['E_24_PRES_Rep'].sum(), df['E_24_PRES_Total'].sum(), df['E_20_PRES_Dem'].sum(), df['E_20_PRES_Rep'].sum(), df['E_20_PRES_Total'].sum()], index=['District', 'County_Name', 'E_24_PRES_Dem', 'E_24_PRES_Rep', 'E_24_PRES_Total', 'E_20_PRES_Dem', 'E_20_PRES_Rep', 'E_20_PRES_Total'])
+df_B = pd.concat([df_B, total.to_frame().T], ignore_index=True)
 df_B.to_csv('Export_Fin.csv')
 
 print('Done')
